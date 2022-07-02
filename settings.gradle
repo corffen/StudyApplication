@@ -14,5 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "StudyApplication"
 include ':app'
-include ':common-lib'
+include ':lib-common'
 include ':moudule-view'
+include ':component-widget'
+include ':lib-base'

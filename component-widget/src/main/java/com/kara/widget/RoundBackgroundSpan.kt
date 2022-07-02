@@ -1,4 +1,4 @@
-package com.corffen.widget
+package com.kara.widget
 
 import android.graphics.Canvas
 import android.graphics.Color
@@ -23,8 +23,14 @@ class RoundBackgroundSpan(builder: Builder) : ReplacementSpan() {
     private var rectF: RectF? = null
     private var size = 0
     override fun getSize(paint: Paint, text: CharSequence?, start: Int, end: Int, fm: Paint.FontMetricsInt?): Int {
-
         size = (paint.measureText(text, start, end) + leftPadding + rightPadding).toInt()
+        val metrics = paint.fontMetricsInt
+        if (fm != null) {
+            fm.top = metrics.top - topPadding.toInt()
+            fm.ascent = metrics.ascent
+            fm.descent = metrics.descent
+            fm.bottom = metrics.bottom + bottomPadding.toInt()
+        }
         return size
     }
 
@@ -32,7 +38,7 @@ class RoundBackgroundSpan(builder: Builder) : ReplacementSpan() {
         val originColor = paint.color
         paint.color = backgroundColor
         if (rectF == null) {
-            rectF = RectF(x, top + topPadding, x + size, bottom - bottomPadding)
+            rectF = RectF(x, top.toFloat(), x + size, bottom.toFloat())
         }
         rectF?.let {
             canvas.drawRoundRect(it, radius, radius, paint)
@@ -59,8 +65,10 @@ class RoundBackgroundSpan(builder: Builder) : ReplacementSpan() {
         public fun setBackgroundColor(@ColorInt value: Int): Builder = apply { this.backgroundColor = value }
         public fun setLeftPadding(value: Float): Builder = apply { this.leftPadding = value }
         public fun setRightPadding(value: Float): Builder = apply { this.rightPadding = value }
+        public fun setTopPadding(value: Float): Builder = apply { this.topPadding = value }
+        public fun setBottomPadding(value: Float): Builder = apply { this.bottomPadding = value }
         public fun setRadius(value: Float): Builder = apply { this.radius = value }
 
-        fun build(): RoundBackgroundSpan = RoundBackgroundSpan(this)
+        fun build(): RoundBackgroundSpan = RoundBackgroundSpan(builder = this@Builder)
     }
 }
