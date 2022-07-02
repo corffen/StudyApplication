@@ -43,7 +43,7 @@ class ViewMainActivity : AppCompatActivity() {
                     ds.color = Color.BLUE
                     ds.isUnderlineText = false
 
-                    
+
                 }
             })
             .create()
