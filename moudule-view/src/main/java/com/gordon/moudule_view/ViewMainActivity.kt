@@ -38,16 +38,11 @@ class ViewMainActivity : AppCompatActivity() {
                 override fun onClick(widget: View) {
                     ToastUtils.showShort("world")
                 }
-
                 override fun updateDrawState(ds: TextPaint) {
                     ds.color = Color.BLUE
                     ds.isUnderlineText = false
-
-
                 }
             })
             .create()
-
-
     }
 }
